@@ -1,0 +1,39 @@
+# Notes: 
+#    The workspace will be owned by $USER_UID:$USER_GID
+
+# Run as follows:
+#
+#    1) Clone this repo and its submodules 
+#       - Cloning repo for the first time : git clone --recurse-submodules <URL>
+#       - OR if the repo is already cloned: git submodule update --init --recursive
+#    2) cd to the directory containing this file
+#    3) Change USER_UID and USER_GID to the desired owner of your files (echo $UID )
+#    4) Change docker-compose.yaml.example to docker-compose.yaml
+#    5) Ensure Docker is installed and the Docker daemon is running
+#    6) Run the following command:
+#
+#        % docker-compose up
+#
+#    7) Look at terminal output and connect to the Juptyer notebook server
+#    8) Open the .ipynb file in the workspace directory and follow the tutorial
+#
+
+version: '3'
+
+services:
+  labs:
+    tty: true
+    hostname: labs
+    image: tannerandrulis/accelergy-v4-tutorial:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./workspace:/home/workspace
+      - ./accelergy-plug-in-tutorial:/home/workspace/accelergy-plug-in-tutorial
+      - ./scripts:/home/workspace/scripts
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    command:
+      - bash
+      - ./scripts/run_jupyter.sh

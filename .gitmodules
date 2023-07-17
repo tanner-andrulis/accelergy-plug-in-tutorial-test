@@ -1,0 +1,3 @@
+[submodule "accelergy-plug-in-tutorial"]
+	path = accelergy-plug-in-tutorial
+	url = git@github.com:tanner-andrulis/accelergy-plug-in-tutorial.git
